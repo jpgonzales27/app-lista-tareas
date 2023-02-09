@@ -28,11 +28,16 @@ const FormularioTareas = ({ tareas, setTareas }) => {
      * haciendo uso del operador spread [..tareas] hacemos una copia del array anteiior
      * y seguido de coma adjuntamos el nuevo objeto que queremos que se agrege
      */
+    /**
+     ** resuelto el bug al momento de crear la nueva tarea
+     * estabamos mando en la propiedad texto:{inputTarea} lo que producia el error al
+     * moemento de renderizar la solucion es texto:inputTarea
+     */
     setTareas([
       ...tareas,
       {
         id: uuidv4(),
-        texto: { inputTarea },
+        texto: inputTarea,
         completada: false,
       },
     ]);
