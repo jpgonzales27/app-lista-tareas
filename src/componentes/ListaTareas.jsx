@@ -1,7 +1,7 @@
 import React from "react";
 import Tarea from "./Tarea";
 
-const ListaTareas = ({ tareas, setTareas }) => {
+const ListaTareas = ({ tareas, setTareas, ocultarCompletas }) => {
   const tareaCompletada = (id) => {
     /**
      * Para actualizar una propiedad de nuestro objeto usamos {...objeto,propiedad:nuevoValor}
@@ -36,15 +36,30 @@ const ListaTareas = ({ tareas, setTareas }) => {
     <>
       <ul className="lista-tareas">
         {tareas.length > 0 ? (
-          tareas.map((tarea) => (
-            <Tarea
-              key={tarea.id}
-              tarea={tarea}
-              tareaCompletada={tareaCompletada}
-              handleEditarTarea={handleEditarTarea}
-              handleElimimarTarea={handleElimimarTarea}
-            />
-          ))
+          tareas.map((tarea) => {
+            if (!ocultarCompletas) {
+              return (
+                <Tarea
+                  key={tarea.id}
+                  tarea={tarea}
+                  tareaCompletada={tareaCompletada}
+                  handleEditarTarea={handleEditarTarea}
+                  handleElimimarTarea={handleElimimarTarea}
+                />
+              );
+            } else if (!tarea.completada) {
+              return (
+                <Tarea
+                  key={tarea.id}
+                  tarea={tarea}
+                  tareaCompletada={tareaCompletada}
+                  handleEditarTarea={handleEditarTarea}
+                  handleElimimarTarea={handleElimimarTarea}
+                />
+              );
+            }
+            return;
+          })
         ) : (
           <div className="lista-tareas__mensaje">Ingresa una tarea</div>
         )}
